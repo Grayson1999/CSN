@@ -15,7 +15,20 @@
                         <!-- Post header-->
                         <header class="mb-4">
                             <!-- Post title-->
-                            <h3 class="fw-bolder mb-1">{{ p.title }}</h3>
+                            <h3 class="fw-bolder mb-1">{{ p.title }}
+                                <!-- Post Tags-->
+                                <h6>
+                                {% if p.tags.exists %}
+                                    <div style="text-align: right;">
+                                        <i class="fa-solid fa-location-dot"></i>
+                                        {% for tag in p.tags.iterator %}
+                                            <a href="#"><span class="badge badge-pill badge-light" style="color:black;">{{ tag }}</span></a>
+                                        {% endfor %}
+                                        <br/>
+                                    </div>
+                                {% endif %}
+                                </h6>
+                            </h3>
                             <!-- Post content-->
                             <p class="fs-5 mb-4">{{ p.content | truncatewords:10 }}</p>
                             <!-- Post meta content-->
@@ -24,9 +37,6 @@
                                 <!-- Post created_date form changed -->
                                 {{ p.created_at }}
                             </div>
-                            <!-- Post Tags-->
-                            <!-- <a class="badge bg-secondary text-decoration-none link-light" href="#!">Web Design</a>
-                            <a class="badge bg-secondary text-decoration-none link-light" href="#!">Freebies</a> -->
                         </header>
                     </article>
                 </div>
