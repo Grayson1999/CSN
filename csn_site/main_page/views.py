@@ -4,5 +4,5 @@ from django.shortcuts import render
 def main(request):
     return render(
         request,
-        'main.html'
+        'main_page/main.html'
     )
