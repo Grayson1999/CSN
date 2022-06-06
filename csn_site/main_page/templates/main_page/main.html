@@ -1,9 +1,9 @@
-{%extends 'main_page/base_gray.html'%}
+{%extends 'main_page/base.html'%}
 
 {% block main_area %}
 
-<body onload="mylocation()">
-    <div class="container mt-5">
+<body onload="mylocation()" class="bg-light">
+    <!-- <div class="container mt-5">
         <div class="row p-3 mb-2 bg-secondary text-white">
             <div class="col" id="map" style="width:45%;height:70vh;"></div>
         </div>
@@ -11,7 +11,19 @@
             <div class="col"><button type="button" class="btn btn-dark" onclick="refind()">재검색</button></div>
             <div class="col"></div>
         </div>
-    </div>
+    </div> -->
+    <div class="container-fluid">
+        <div class="row align-items-start">
+          <div class="col-3 bg-secondary">
+            <div style="width:100%;height:90vh;">
+                <button type="button" class="btn btn-dark" onclick="refind()">재검색</button>
+            </div>
+          </div>
+          <div class="col-9 p-4">
+            <div class="col" id="map" style="width:100%;height:83vh;">
+          </div>
+        </div>
+    
 
 
     <script type="text/javascript"
