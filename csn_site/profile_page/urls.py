@@ -7,4 +7,5 @@ urlpatterns = [
     path("",views.index),
     path('common/', include('common.urls')),
     path('', views.index, name='index'), #추가
+    path()
 ]
