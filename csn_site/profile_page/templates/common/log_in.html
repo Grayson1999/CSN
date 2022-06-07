@@ -1,4 +1,5 @@
 {% extends 'main_page/base.html' %}
+{% load socialaccount %}
 
 {% block main_area %}
 
@@ -24,6 +25,17 @@
         <button type="submit" class="btn btn-primary">로그인</button>
         <a href="{% url 'common:signup' %}"><input type="button" class="btn btn-primary" value="회원가입"></a>
     </form>
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-md-6">
+                <a role="button" class="btn btn-outline-dark btn-block btn-sm" href="{% provider_login_url 'google' %}"><i class="fab fa-google"></i>&nbsp&nbsp Log in with Google</a>
+                <a role="button" class="btn btn-outline-dark btn-block btn-sm" href="/accounts/login/"><i class="far fa-envelope"></i>&nbsp&nbsp Log in with E-mail</a>
+                <hr>
+                <a role="button" class="btn btn-outline-dark btn-block btn-sm" href="/accounts/signup/"><i class="far fa-envelope"></i>&nbsp&nbsp Sign Up with E-mail</a>
+
+            </div>
+        </div>
+    </div>
 </div>
 {% endblock %}
 
