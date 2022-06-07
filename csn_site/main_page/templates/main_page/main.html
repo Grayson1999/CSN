@@ -2,28 +2,20 @@
 
 {% block main_area %}
 
-<body onload="mylocation()" class="bg-light">
-    <!-- <div class="container mt-5">
-        <div class="row p-3 mb-2 bg-secondary text-white">
-            <div class="col" id="map" style="width:45%;height:70vh;"></div>
-        </div>
-        <div class="row">
+<body onload="mylocation()">
+    <div class="d-flex" id="container" style="height: 100%;">
+        
+        <div class="col-md-3">
             <div class="col"><button type="button" class="btn btn-dark" onclick="refind()">재검색</button></div>
-            <div class="col"></div>
+       </div>
+        <div class="p-3 mb-2 text-white d-flex" style="flex:1;">
+           
+            <div class="col p-3" id="map" style="width: 100%;"></div>
+           
+            
         </div>
-    </div> -->
-    <div class="container-fluid">
-        <div class="row align-items-start">
-          <div class="col-3 bg-secondary">
-            <div style="width:100%;height:90vh;">
-                <button type="button" class="btn btn-dark" onclick="refind()">재검색</button>
-            </div>
-          </div>
-          <div class="col-9 p-4">
-            <div class="col" id="map" style="width:100%;height:83vh;">
-          </div>
-        </div>
-    
+       
+    </div>
 
 
     <script type="text/javascript"
@@ -42,7 +34,7 @@
         // 지도를 생성합니다    
         var map = new kakao.maps.Map(mapContainer, mapOption);
 
-
+        resizeMap();
 
         function refind(position) {
             var position = map.getCenter();
@@ -50,7 +42,9 @@
         }
 
 
-
+        function resizeMap() {
+            $("#map").height( $("#container").innerHeight() * 0.6);
+        }
         function findCS(position) {
             // 장소 검색 객체를 생성합니다
             var ps = new kakao.maps.services.Places(map);
