@@ -4,17 +4,31 @@
 
 <body onload="mylocation()">
     <div class="d-flex" id="container" style="height: 100%;">
-        
-        <div class="col-md-3">
-            <div class="col"><button type="button" class="btn btn-dark" onclick="refind()">재검색</button></div>
-       </div>
-        <div class="p-3 mb-2 text-white d-flex" style="flex:1;">
-           
-            <div class="col p-3" id="map" style="width: 100%;"></div>
-           
-            
+        <div class="col-md-3 bg-secondary">
+            <div class="col">
+                <div class="input-group mb-3 mt-5 p-3">
+                    <input type="text" class="form-control" id="input-search" placeholder="편의점 지도 검색" aria-label="Recipient's username"
+                        aria-describedby="button-addon2">
+                    <button class="btn btn-outline-dark text-white" type="button" id="button-search"
+                        onclick="search_location()">검색</button>
+                </div>
+                <div class="my-5 p-2 fw-normal fs-4 text-center">
+                    여기에<br>
+                    설명을<br>
+                    쓸거임<br>
+                    회의때<br>
+                    다같이<br>
+                    고민ㄱ<br>
+                </div>
+                <div class="fixed-bottom my-3">
+                    <button type="button" class="btn btn-dark p-auto my-5" onclick="refind()"
+                        style="margin-left: 20%;">재검색</button>
+                </div>
+            </div>
         </div>
-       
+        <div class="col p-3 mb-2 d-flex" style="flex:1;">
+            <div class=" p-3" id="map" style="width: 90%;"></div>
+        </div>
     </div>
 
 
@@ -34,17 +48,48 @@
         // 지도를 생성합니다    
         var map = new kakao.maps.Map(mapContainer, mapOption);
 
-        resizeMap();
 
+        // 검색  함수
+        function search_location() {
+            // 장소 검색 객체를 생성합니다
+            var ps1 = new kakao.maps.services.Places();
+            var inputData = $('#input-search').val();
+            var callback = function (result, status) {
+                if (status === kakao.maps.services.Status.OK) {
+                    x = result[0]["x"];
+                    y = result[0]["y"];
+                    // 이동할 위도 경도 위치를 생성합니다 
+                    var moveLatLon = new kakao.maps.LatLng(parseFloat(y),parseFloat(x));
+                    console.log(moveLatLon)
+                    
+                    // 지도 중심을 부드럽게 이동시킵니다
+                    // 만약 이동할 거리가 지도 화면보다 크면 부드러운 효과 없이 이동합니다
+                    map.panTo(moveLatLon);  
+                    refind(moveLatLon)
+                    map.relayout();
+                }
+            }
+            if (inputData == "") {
+                alert("검색어를 입력하세요");
+            } else {
+                ps1.keywordSearch(inputData, callback);
+            }
+        }
+
+        // 다시 찾는 함수
         function refind(position) {
             var position = map.getCenter();
-            findCS(position)
+            findCS(position);
+            resizeMap();
         }
 
-
+        // 반응형 map 함수
         function resizeMap() {
-            $("#map").height( $("#container").innerHeight() * 0.6);
+            $("#map").height($("#container").innerHeight() * 0.75);
+            $("#map").css("margin", $("#container").innerHeight() * 0.07);
         }
+
+
         function findCS(position) {
             // 장소 검색 객체를 생성합니다
             var ps = new kakao.maps.services.Places(map);
@@ -76,6 +121,8 @@
                     infowindow.setContent('<div style="padding:5px;font-size:12px;">' + place.place_name + '</div>');
                     infowindow.open(map, marker);
                 });
+
+                resizeMap();
             }
         }
 
@@ -96,6 +143,8 @@
                     message = '위치를 불러올 수 없습니다.';
                 current_displayMarker(locPosition, message);
             }
+
+
             // 지도에 마커와 인포윈도우를 표시하는 함수입니다
             function current_displayMarker(locPosition, message) {
                 // 마커를 생성합니다
@@ -124,7 +173,7 @@
                 map.setCenter(locPosition);
 
                 var position = map.getCenter();
-                findCS(position)
+                findCS(position);
             }
 
         }
