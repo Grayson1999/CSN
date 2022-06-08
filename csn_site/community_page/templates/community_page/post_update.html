@@ -1,7 +1,7 @@
 {% extends 'main_page/base.html' %}
 {% load static %}
 
-{% block head_title %}게시글 작성{% endblock %}
+{% block head_title %}게시글 수정{% endblock %}
 {% block extra_link %}
     <script src="{% static 'js/summernote/summernote-lite.js' %}"></script>
     <script src="{% static 'js/summernote/lang/summernote-ko-KR.js' %}"></script>
@@ -42,22 +42,19 @@
     <div class="card">
         <div class="card-header" style="text-align:center; font-size: 20px;">
             <!-- 제목 입력 칸 -->
-            <input type="text" name="title" maxlength="100" required="" id="id_title" size="80" style="text-align: center; font-size: 30px;" placeholder="제목을 입력해주세요.">
+            <input type="text" name="title" maxlength="100" required="" id="id_title" size="80" style="text-align: center; font-size: 30px;" placeholder="제목을 입력해주세요." value="{{ title_default }}">
             <br>
             <div style=" float: right;">
                 <i class="fa-solid fa-location-dot"></i>
                 <!-- 태그 입력 칸 -->
-                <input type="text" name="tags" maxlength="50" required="" id="id_tags" size="30" style="text-align: center; font-size: 20px; margin-top: 5px;" placeholder="태그를 입력해주세요.">
+                <input type="text" name="tags" maxlength="50" required="" id="id_tags" size="30" style="text-align: center; font-size: 20px; margin-top: 5px;" placeholder="태그를 입력해주세요." value="{{ tags_str_default }}">
             </div>
-        </div>
-        <div class="card-tags" style="text-align:right; font-size: 20px; float: right;">
-            
         </div>
         <script>
             $(document).ready(function() {
                 $('#summernote').summernote({
                     placeholder: '내용을 입력해주세요.',
-                    height: 650,
+                    height: 690,
                     lang: 'ko-KR',
                 
                     toolbar: [
@@ -74,8 +71,8 @@
                 $('.note-resizebar').css('display','none');
             });
         </script>
-        
-        <textarea id="summernote" name="content" cols="40" rows="10" required="" id="id_content"></textarea>
+
+        <textarea id="summernote" name="content" cols="40" rows="10" required="" id="id_content">{{ content_default }}</textarea>
     </div>
 
     <div class="row" style="padding-right:20px;">
