@@ -6,23 +6,21 @@
     <div class="d-flex" id="container" style="height: 100%;">
         <div class="col-md-3 bg-secondary">
             <div class="col">
-                <div class="input-group mb-3 mt-5 p-3">
+                <div class="input-group mb-3 my-5 p-3 ">
                     <input type="text" class="form-control" id="input-search" placeholder="편의점 지도 검색" aria-label="Recipient's username"
-                        aria-describedby="button-addon2">
+                        aria-describedby="button-addon2" onKeypress="javascript:if(event.keyCode==13) {search_location()}"/>
                     <button class="btn btn-outline-dark text-white" type="button" id="button-search"
                         onclick="search_location()">검색</button>
                 </div>
-                <div class="my-5 p-2 fw-normal fs-4 text-center">
-                    여기에<br>
-                    설명을<br>
-                    쓸거임<br>
-                    회의때<br>
-                    다같이<br>
-                    고민ㄱ<br>
+                <div class="my-5 ">
+                    <div class="my-5 p-2 fw-normal fs-4 text-center">
+                    포켓몬 빵, 허니버터칩 등<br>최근 유행 제품 찾기 어려울 땐<br><h3><strong>CSN</strong></h3><br>현 위치 주변 편의점을 찾고<br>커뮤니티 기능으로<br>물량 확인 및 친목까지<br><h3><strong>CSN</strong></h3><br> Convenience Store of the people,<br> by the people, <br>for the people <br><h3><strong>CSN</strong></h3>
                 </div>
-                <div class="fixed-bottom my-3">
-                    <button type="button" class="btn btn-dark p-auto my-5" onclick="refind()"
-                        style="margin-left: 20%;">재검색</button>
+                </div>
+            
+                <div class="fixed-bottom my-4">
+                    <button type="button" class="btn btn-dark p-auto my-5 " onclick="mylocation()"
+                        id="mylocation" >현위치</button>
                 </div>
             </div>
         </div>
@@ -54,6 +52,7 @@
             // 장소 검색 객체를 생성합니다
             var ps1 = new kakao.maps.services.Places();
             var inputData = $('#input-search').val();
+            $('#input-search').val("");
             var callback = function (result, status) {
                 if (status === kakao.maps.services.Status.OK) {
                     x = result[0]["x"];
@@ -87,6 +86,7 @@
         function resizeMap() {
             $("#map").height($("#container").innerHeight() * 0.75);
             $("#map").css("margin", $("#container").innerHeight() * 0.07);
+            $("#mylocation").css("margin-left", $("#container").innerWidth() * 0.94)
         }
 
 
@@ -153,7 +153,7 @@
                     position: locPosition
                 });
                 var markerImage = new kakao.maps.MarkerImage(
-                    'https://image3.compuzone.co.kr/img/product_img/2013/0524/258639/258639_600.jpg',
+                    'https://my-current-location.com/buttons/my-current.svg',
                     new kakao.maps.Size(31, 35), new kakao.maps.Point(13, 34));
                 marker.setImage(markerImage);
 
@@ -170,7 +170,7 @@
                 // infowindow.open(map, marker);
 
                 // 지도 중심좌표를 접속위치로 변경합니다
-                map.setCenter(locPosition);
+                map.panTo(locPosition);  
 
                 var position = map.getCenter();
                 findCS(position);
