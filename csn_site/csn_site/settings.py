@@ -49,7 +49,10 @@ INSTALLED_APPS = [
     
     'main_page',
     'community_page',
-    'profile_page'
+    'profile_page',
+
+    # post_create css
+    'django_summernote',
 ]
 
 MIDDLEWARE = [
