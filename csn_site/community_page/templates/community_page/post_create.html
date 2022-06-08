@@ -1,0 +1,44 @@
+{% extends 'main_page/base.html' %}
+<!-- {% load static %} -->
+
+{% block head_title %}게시글 작성{% endblock %}
+{% block extra_link %}
+    <!-- 작성 중에 나가거나 새로고침 시 저장되지 않는다고 경고 -->
+    <script type="text/javascript">
+        // function sd_check() {
+        //     $("#check_login").hide();
+        //     var check_TF = $("#check_login").text();
+        //     alert(check_TF);
+        // }
+
+        var checkUnload = true;
+        $(window).on('beforeunload', function () {
+            if (checkUnload) return "이 페이지를 벗어나면 작성된 내용은 저장되지 않습니다.";
+        });
+        $("#write").on("click", function () {
+            checkUnload = false;
+            $("submit").submit();
+        });
+
+
+    </script>
+
+
+{% endblock %}
+
+{% block main_area %}
+<!-- {% if request.user.is_authenticated %}
+    <div id="check_login" onload="sd_check()">T</div>
+{% else %}
+    <div id="check_login" onload="sd_check()">F</div>
+{% endif %} -->
+
+<form action="" method="POST">
+    {% csrf_token %}
+    <table>
+        {{form.as_table}}
+    </table> 
+    <input type="submit" value="제출">
+</form>
+
+{% endblock %}

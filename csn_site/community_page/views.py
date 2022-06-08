@@ -1,7 +1,12 @@
 from datetime import timezone
 from django.shortcuts import render, redirect
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, CreateView
 from .models import Photo, Post
+from django import forms
+from django_summernote.widgets import SummernoteWidget
+from .forms import PostForm
+
+# from users.decorators import admin_required
 
 # Create your views here.
 # def community(request):
@@ -39,4 +44,18 @@ def create(request):
             photo.save()
         return redirect('/detail/' + str(post.id))
     else:
-        return render(request, 'new.html')
+        return render(request, 'new.html')  
+
+def post_create(request):
+    if request.method == "POST":
+        form = PostForm(request.POST, request.FILES)
+        if form.is_valid():
+            post = Post(**form.cleaned_data)
+            post.save()
+            return redirect('community/')
+    else:
+        form = PostForm()
+    context = {
+        'form' : form
+    }
+    return render(request, 'community_page/post_create.html', context)
