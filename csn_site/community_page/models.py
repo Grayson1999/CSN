@@ -13,6 +13,7 @@ from datetime import datetime, timedelta, timezone
 
 #     def get_absolute_url(self):
 #         return f'/blog/category/{self.slug}'
+
 class Tag(models.Model):
     name = models.CharField(max_length=50)
     slug = models.SlugField(max_length=200, unique=True, allow_unicode=True)
@@ -43,13 +44,13 @@ class Post(models.Model):
     def get_absolute_url(self):
         return f'/community/{self.pk}/'
 
-    def get_file_name(self):
-        return os.path.basename(self.file_upload.name)
+    # def get_file_name(self):
+    #     return os.path.basename(self.file_upload.name)
 
-    def get_file_ext(self):
-        return self.get_file_name().split('.')[-1]
+    # def get_file_ext(self):
+    #     return self.get_file_name().split('.')[-1]
 
-class Photo(models.Model):
-    post = models.ForeignKey(Post, on_delete=models.CASCADE, null=True)
-    image = models.ImageField(upload_to='community/images/%Y/%m/%d', blank=True, null=True)
+# class Photo(models.Model):
+#     post = models.ForeignKey(Post, on_delete=models.CASCADE, null=True)
+#     image = models.ImageField(upload_to='community/images/%Y/%m/%d', blank=True, null=True)
 

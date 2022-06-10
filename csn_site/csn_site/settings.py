@@ -52,7 +52,7 @@ INSTALLED_APPS = [
     'profile_page',
 
     # post_create css
-    'django_summernote',
+    # 'django_summernote',
 ]
 
 MIDDLEWARE = [
