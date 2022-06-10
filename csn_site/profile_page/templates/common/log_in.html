@@ -43,7 +43,7 @@
   <body class="text-center">
  
  
-<main class="form-signin">
+<main class="form-signin" style="min-height:92.5%;">
     <form method="post" class = "post-form w-50 col-md-3" action="{% url 'common:login'%}" style="float: none; margin:0 auto;">
       {% csrf_token %}
       {% include "form_errors.html" %}
