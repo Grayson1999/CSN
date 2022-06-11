@@ -1,0 +1,58 @@
+{% extends 'main_page/base.html' %}
+
+{% block head_title %}
+CSN - {{ post.title }}
+{% endblock %}
+
+{% block extra_link %}
+<!-- <script type="text/javascript">
+    function del(pk) {
+        var tOrF = confirm("정말 삭제하시겠습니까?")
+        if (tOrF) {
+            alert("삭제되었습니다.")
+            var f = document.update_delete
+            f.method = "post"
+            f.action = 'http://127.0.0.1:8000/community/post_delete/' + pk + '/'
+            f.submit()
+        }
+    } -->
+</script>
+{% endblock %}
+
+{% block main_area %}
+                    <!-- Comments section-->
+                    <section class="mb-5" >
+                        <div class="card bg-light">
+                            <div class="card-body">
+                                <div class="fw-bold">
+                                    <h4 style="margin-bottom: 15px;"><b>&nbsp;댓글 수정</b></h4>
+                                </div>
+                                <!-- Comment form-->
+                                {% if user.is_authenticated %}
+                                    <form id="comment-form" method="POST">
+                                        {% csrf_token %}
+                                        <div class="form-group">
+                                            <textarea class="form-control" name="content" id="id_content" required="" rows="3">{{ comment.content }}</textarea>
+                                        </div>
+                                        <div style="float: right;">
+                                            <br>
+                                            <button type="submit" class="btn btn-secondary">작성</button>
+                                        </div>
+                                    </form>
+                                {% else %}
+                                    <div class="form-group">
+                                        <textarea class="form-control" rows="3" placeholder="로그인을 해야 이용 가능한 기능입니다." disabled></textarea>
+                                    </div>
+                                    <div style="float: right;">
+                                        <br>
+                                        <button type="submit" class="btn btn-secondary" disabled>작성</button>
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+
+{% endblock %}
