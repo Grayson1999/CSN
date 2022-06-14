@@ -3,6 +3,9 @@ from django.contrib.auth.models import User
 from django.db import models
 from datetime import datetime, timedelta, timezone
 
+#
+# from django.conf import settings
+
 # Create your models here.
 # class Category(models.Model):
 #     name = models.CharField(max_length=50, unique=True)

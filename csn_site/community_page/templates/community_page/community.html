@@ -4,12 +4,12 @@
 
 {% block main_area %}
 <div>
-    <div class="row">
+    <div class="row" style="font-family: 'Single Day', cursive;"">
         <div class="col-md-12 bg-light my-3" style="padding-left: 10px; padding-right: 70px;">
             {% if request.user.is_authenticated %}
-                <a href="{% url 'post_create' %}" id="create_post_button" class="btn float-right btn-success">게시글 작성</a>
+                <a href="{% url 'post_create' %}"class="create_post_button btn float-right btn-success">게시글 작성</a>
             {% else %}
-                <a href="{% url 'common:login' %}" onclick="alert('로그인이 필요한 서비스입니다.')" id="create_post_button" class="btn float-right btn-success">게시글 작성</a>        
+                <a href="{% url 'common:login' %}" onclick="alert('로그인이 필요한 서비스입니다.')"class="create_post_button btn float-right btn-success">게시글 작성</a>        
             {% endif %}
         </div>
         <hr>
@@ -17,7 +17,7 @@
 </div>
     {% for p in post_list %}
     <!-- Page content-->
-    <div style="padding-top: 10px; padding-left: 40px; padding-right: 40px;">
+    <div style="padding-bottom: 50px; padding-top: 10px; padding-left: 40px; padding-right: 40px;">
         <!-- Post Tags-->
         <h6>
             {% if p.tags.exists %}
@@ -35,14 +35,14 @@
                 <div class="col-lg-12">
                     <article>
                         <!-- Post header-->
-                        <header class="mb-4">
+                        <header class="">
                             <!-- Post title-->
                             <h3 class="fw-bolder mb-1">{{ p.title }}</h3>
                         </header>        
                         <!-- Post content-->
                         <!-- <p class="fs-5 mb-4">{{ p.content | truncatewords:10 | safe }}</p> -->
                         <!-- Post meta content-->
-                        <div class="text-muted mb-2">
+                        <div class="text-muted">
                             작성자: {{ p.author }}&nbsp;&nbsp;
                             <!-- Post created_date form changed -->
                             {{ p.created_at }}
@@ -75,7 +75,7 @@
                 <a class="page-link"><span>{{ i }} <span class="sr-only">(current)</span></span></a>
             </li>
             {% else %}
-            <li class="page-item">
+            <li class="page-item mb-5">
                 <a class="page-link" href="?page={{ i }}">{{ i }}</a>
             </li>
             {% endif %}

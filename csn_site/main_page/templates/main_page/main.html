@@ -1,10 +1,11 @@
 {%extends 'main_page/base.html'%}
+{% load static %}
 
 {% block main_area %}
 
 <body onload="mylocation()">
     <div class="d-flex" id="container" style="height: 100%;">
-        <div class="col-md-3 bg-secondary">
+        <div class="col-md-3 bg-secondary" >
             <div class="col">
                 <div class="input-group mb-3 my-5 p-3 ">
                     <input type="text" class="form-control" id="input-search" placeholder="편의점 지도 검색" aria-label="Recipient's username"
