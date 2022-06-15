@@ -3,10 +3,8 @@ from django.contrib.auth.models import User
 from django.db import models
 from datetime import datetime, timedelta, timezone
 
-#
-# from django.conf import settings
 
-# Create your models here.
+
 # class Category(models.Model):
 #     name = models.CharField(max_length=50, unique=True)
 #     slug = models.SlugField(max_length=200, unique=True, allow_unicode=True)
@@ -30,7 +28,12 @@ class Tag(models.Model):
 class Post(models.Model):
     title = models.CharField(max_length=100)
     content = models.TextField()
-
+    #
+    like_user_set = models.ManyToManyField(User, blank=True, related_name='like_user_set',through='Like')
+    #좋아요 수 계산
+    @property
+    def like_count(self):
+        return self.like_user_set.count()
     # file_upload = models.FileField(upload_to='community/files/%Y/%m/%d', blank=True)
 
     created_at = models.DateTimeField(auto_now_add=True)
@@ -54,7 +57,7 @@ class Post(models.Model):
     #     return self.get_file_name().split('.')[-1]
 
 class Comment(models.Model):
-    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='comment')
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     content = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
@@ -77,3 +80,13 @@ class Comment(models.Model):
 #     post = models.ForeignKey(Post, on_delete=models.CASCADE, null=True)
 #     image = models.ImageField(upload_to='community/images/%Y/%m/%d', blank=True, null=True)
 
+#좋아요
+class Like(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    #함께 가져와서 고유해야하는 필드 이름 세트
+    class Meta:
+        unique_together = (('user','post'))
+#

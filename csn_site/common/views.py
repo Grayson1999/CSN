@@ -22,24 +22,3 @@ def signup(request):
     else:
         form = UserForm()
     return render(request, 'common/sign_up.html', {'form': form})
-
-# class UserLoginView(LoginView, request):
-#     template_name='common/log_in.html'
-
-#     class Meta():
-#         redirect_to = request.REQUEST.get('next', '')
-
-    # def get_success_url(self):
-    #     return super().get_redirect_url()
-
-    # def get_redirect_url(self):
-    # """Return the user-originating redirect URL if it's safe."""
-    #     redirect_to = self.request.POST.get(
-    #         self.redirect_field_name, self.request.GET.get(self.redirect_field_name, "")
-    #     )
-    #     url_is_safe = url_has_allowed_host_and_scheme(
-    #         url=redirect_to,
-    #         allowed_hosts=self.get_success_url_allowed_hosts(),
-    #         require_https=self.request.is_secure(),
-    #     )
-    #     return redirect_to if url_is_safe else ""

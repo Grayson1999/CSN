@@ -226,3 +226,22 @@ def new_comment(request, pk):
 #         'form' : post,
 #     }
 #     return render(request, 'community_page/post_create.html', context)
+
+
+
+#좋아요
+
+def post_like(request, post_id):
+    post = get_object_or_404(Post, pk=post_id)
+    #좋아요 확인
+    if request.user in post.like_user_set.all():
+            post.like_user_set.remove(request.user)
+    else:
+            post.like_user_set.add(request.user)
+
+    if request.GET.get('redirect_to') == 'community':
+        return redirect('community',post_id)
+    else:
+        return redirect('community',post_id)
+
+#

@@ -40,6 +40,7 @@ CSN - {{ post.title }}
                                     </div>
                                 </div>
                             </form>
+                            
                             {% endif %}
                             <!-- Post title-->
                             <h1 class="fw-bolder mb-1">{{ post.title }}</h1>
@@ -70,10 +71,28 @@ CSN - {{ post.title }}
                     <!-- Comments section-->
                     <section class="mb-5" >
                         <div class="card bg-light">
+                            <div class = "container mt-2">
+                                <!-- <a href="{% url 'post_like' post.id %}"> -->                                
+                                {% if user in post.like_user_set.all %}
+                                    {% if user.is_authenticated %}
+                                        <a href="{% url 'post_like' post.id %}"><i class="fas fa-heart">{{ post.like_count }}개</i></a>
+                                    {% else %}
+                                        <a href="{% url 'common:login' %}" onclick="alert('로그인이 필요한 서비스입니다.')"><i class="fas fa-heart">{{ post.like_count }}개</i></a>
+                                    {% endif %}
+                                {% else %}
+                                    {% if user.is_authenticated %}
+                                    <a href="{% url 'post_like' post.id %}"><i class="far fa-heart">{{ post.like_count }}개</i></a>
+                                    {% else %}
+                                    <a href="{% url 'common:login' %}" onclick="alert('로그인이 필요한 서비스입니다.')"><i class="far fa-heart">{{ post.like_count }}개</i></a>
+                                    {% endif %}
+                                {% endif %}
+                            <!-- </a> -->
+                            </div>
                             <div class="card-body">
                                 <div class="fw-bold">
                                     <h4 style="margin-bottom: 15px;"><b>&nbsp;댓글</b></h4>
                                 </div>
+                                
                                 <!-- Comment form-->
                                 {% if user.is_authenticated %}
                                     <form id="comment-form" method="POST" action="{{post.get_absolute_url}}new_comment/">
