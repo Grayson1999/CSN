@@ -49,7 +49,7 @@ def crawling(request):
         sorted_post_data[i].append(i)
 
     context ={
-        'data':sorted_post_data
+        'data':sorted_post_data[:3]
     }
 
     return render(request, 'main_page/main.html', context)
